@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Button, Text, View } from 'react-native';
 import styles from '../assets/style/styles.js';
 
-import AddSleepTimeModal from "./parts/AddSleepTimeModal";
+import SleepTimeModal from "./parts/SleepTimeModal";
 import {
     LineChart,
     BarChart,
@@ -47,7 +47,7 @@ class ChartScreen extends React.Component {
           title="Go to Home"
           onPress={() => this.props.navigation.navigate('Home')}
         />
-        <AddSleepTimeModal/>
+        <SleepTimeModal/>
       </View>
     );
   }

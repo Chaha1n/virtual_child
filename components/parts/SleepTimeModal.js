@@ -3,7 +3,7 @@ import {Button, Text, View} from 'react-native';
 import Modal from 'modal-react-native-web';
 import styles from "../../assets/style/styles";
 
-export default class AddSleepTimeModal extends React.Component {
+export default class SleepTimeModal extends React.Component {
 
     state = {
         isModalVisible: false,
