@@ -20,7 +20,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "virtual_child.chaha1n.ocm.github",
+      "package": "virtual_child.chaha1n.com.github",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
