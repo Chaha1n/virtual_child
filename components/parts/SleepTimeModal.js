@@ -52,18 +52,21 @@ export default class SleepTimeModal extends React.Component {
     }
 
     _handleDateChange = (event,selectedDate)=> {
-        this.setState({dateField: selectedDate.toDateString()});
+        let d = selectedDate.toString().split(" ");
         this.setState({isDatePickerVisible:false});
-    }
-
-    _handleGetUpChange = (event,selectedTime) => {
-        this.setState({getUpField:selectedTime.toString()});
-        this.setState({isGetUpPickerVisible:false});
+        this.setState({dateField:`${d[3]}-${d[1]}-${d[2]}`});
     }
     _handleGoToChange =(event,selectedTime) => {
-        this.setState({goToBedField:selectedTime.toString()});
+        let d = selectedTime.toString().split(" ");
         this.setState({isGoToBedPickerVisible:false});
+        this.setState({goToBedField:`${d[4]}`.slice(0,-3)});
     }
+    _handleGetUpChange = (event,selectedTime) => {
+        let d = selectedTime.toString().split(" ");
+        this.setState({isGetUpPickerVisible:false});
+        this.setState({getUpField:`${d[4]}`.slice(0,-3)});
+    }
+
 
 
     render() {
@@ -115,9 +118,9 @@ export default class SleepTimeModal extends React.Component {
                     transparent={true}
                 >
                     <View style={styles.modal}>
-                        <Button title={this.state.dateField}    onPress={this.toggleDatePicker}/>
-                        <Button title={this.state.goToBedField} onPress={this.toggleGoToBedPicker}/>
-                        <Button title={this.state.getUpField}   onPress={this.toggleGetUpPicker}/>
+                        <Text>日付</Text><Button title={this.state.dateField}    onPress={this.toggleDatePicker}/>
+                        <Text>就寝</Text><Button title={this.state.goToBedField} onPress={this.toggleGoToBedPicker}/>
+                        <Text>起床</Text><Button title={this.state.getUpField}   onPress={this.toggleGetUpPicker}/>
 
                         {this.state.isDatePickerVisible  && <DateTimePicker value={new Date()} onChange={this._handleDateChange} mode="date"/>}
                         {this.state.isGoToBedPickerVisible  && <DateTimePicker value={new Date()} onChange={this._handleGoToChange} mode="time"/>}
