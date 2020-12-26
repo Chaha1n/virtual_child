@@ -1,10 +1,9 @@
 import React from 'react';
-import {Button, Text, View,Modal} from 'react-native';
+import {Button, Text, View,Modal,Image,TouchableOpacity} from 'react-native';
 import styles from "../../assets/style/styles";
 import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-community/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
-//
 
 export default class SleepTimeModal extends React.Component {
 
@@ -118,6 +117,13 @@ export default class SleepTimeModal extends React.Component {
                     transparent={true}
                 >
                     <View style={styles.modal}>
+                        <TouchableOpacity onPress={this.toggleModal}>
+                            <Image
+                                style={styles.closeButton}
+                                source={require('../../assets/x-circle.svg')
+                            }>
+                            </Image>
+                        </TouchableOpacity>
                         <Text>日付</Text><Button title={this.state.dateField}    onPress={this.toggleDatePicker}/>
                         <Text>就寝</Text><Button title={this.state.goToBedField} onPress={this.toggleGoToBedPicker}/>
                         <Text>起床</Text><Button title={this.state.getUpField}   onPress={this.toggleGetUpPicker}/>
@@ -125,7 +131,7 @@ export default class SleepTimeModal extends React.Component {
                         {this.state.isDatePickerVisible  && <DateTimePicker value={new Date()} onChange={this._handleDateChange} mode="date"/>}
                         {this.state.isGoToBedPickerVisible  && <DateTimePicker value={new Date()} onChange={this._handleGoToChange} mode="time"/>}
                         {this.state.isGetUpPickerVisible && <DateTimePicker value={new Date()} onChange={this._handleGetUpChange} mode="time"/>}
-                        <Button title="記録" onPress={recordTimeOfSleeping}/>
+                        <Button style={styles.showModalButton}title="記録" onPress={recordTimeOfSleeping}/>
                     </View>
                 </Modal>
             </View>
