@@ -20,6 +20,9 @@ export default class SleepTimeModal extends React.Component {
         super();
         this.state.isModalVisible = false
         this.toggleModal          = this.toggleModal.bind(this);
+        this._handleGetUpChange = this._handleGetUpChange.bind(this);
+        this._handleDateChange = this._handleDateChange.bind(this);
+        this._handleGoToChange = this._handleGoToChange.bind(this);
     }
 
     toggleModal() {
@@ -31,32 +34,32 @@ export default class SleepTimeModal extends React.Component {
         const year   = d.getFullYear();
         const month  = ("0"+(d.getMonth()+1)).slice(-2);
         const day    = ("0"+d.getDate()).slice(-2);
-
+        console.log(`${year}-${month}-${day}`)
         return `${year}-${month}-${day}`;
     }
     _handleDateChange = inputDate =>{
-        this.setState({dateField:inputDate});
-        console.log(inputDate);
+        this.setState({dateField:inputDate.target.value});
+        console.log(inputDate.target.value);
     }
     _handleGetUpChange = inputGetUp =>{
-        this.setState({getUpField:inputGetUp});
+        this.setState({getUpField:inputGetUp.target.value});
+        console.log(inputGetUp.target.value)
     }
     _handleGoToChange = inputGoTo =>{
-        this.setState({goToBedField:inputGoTo});
+        this.setState({goToBedField:inputGoTo.target.value});
     }
     render() {
         const recordTimeOfSleeping = ()=>{
-            let date  = this.state.dateField;
+            let date  = this.state.dateField.toString();
             let goTo  = this.state.goToBedField;
             let getUp = this.state.getUpField;
-
+            console.log(date,goTo,getUp)
             let sleepTime = goTo - getUp > 0 ? goTo - getUp : 0;
-
+            console.log(sleepTime);
             //init react-native-storage
             const storage = new Storage({
                 storageBackend:AsyncStorage,
             });
-            console.log(date,goTo,getUp);
             storage.save({
                 key:date,
                 data:{
@@ -66,9 +69,7 @@ export default class SleepTimeModal extends React.Component {
                 this.toggleModal();
             }).catch((e)=>{
                 console.error(e);
-            })
-
-
+            });
         }
         return (
             <View style={styles.container}>
@@ -81,9 +82,9 @@ export default class SleepTimeModal extends React.Component {
                 >
                     <View style={styles.modal}>
                         <Text>Hello!</Text>
-                        <input type="date" value = {this.state.dateField} onChange = {this._handleDateChange}></input>
-                        <input type="time" value = {this.state.getUpField} onChangeText = {this._handleGetUpChange}></input>
-                        <input type="time" value = {this.state.goToBedField} onChangeText = {this._handleGoToChange}></input>
+                        <input type="date" value={this.state.dateField}    onChange = {this._handleDateChange}></input>
+                        <input type="time" value={this.state.getUpField}   onChange = {this._handleGetUpChange}></input>
+                        <input type="time" value={this.state.goToBedField} onChange = {this._handleGoToChange}></input>
                         <Button title="記録" onPress={recordTimeOfSleeping}/>
                     </View>
                 </Modal>
