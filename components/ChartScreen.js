@@ -27,14 +27,13 @@ class ChartScreen extends React.Component {
         let sleepData = {"hours":0,"minutes":0};
         storage.load({key:date}).then((d)=>{
             sleepData = d;
-            console.log(sleepData);
         }).catch((e)=>{
             console.log(e)
         });
+        console.log(sleepData);
         return sleepData;
     }
   render(){
-        this._readSleepTimeData("2020-12-26")
     return (
       <View style={styles.container}>
         <Text>起床就寝管理</Text>
