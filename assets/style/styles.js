@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
 
 export default StyleSheet.create({
 
@@ -9,13 +10,11 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     modal: {
-
+        marginTop:Dimensions.get('window').height*0.5,
+        height:Dimensions.get('window').height*0.3,
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 50,
-        padding: 50,
-        backgroundColor: 'white'
+        backgroundColor: 'gray'
     }
-
 
 });
