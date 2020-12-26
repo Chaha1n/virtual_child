@@ -47,14 +47,14 @@ export default class SleepTimeModal extends React.Component {
         const year = d.getFullYear();
         const month = ("0" + (d.getMonth() + 1)).slice(-2);
         const day = ("0" + d.getDate()).slice(-2);
-        console.log(`${year}-${month}-${day}`)
-        return new Date(parseInt(year.toString()),parseInt(month),parseInt(day));
+        return (`${year}-${month}-${day}`);
     }
 
     _handleDateChange = (event,selectedDate)=> {
+        const monthNameArray = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
         let d = selectedDate.toString().split(" ");
         this.setState({isDatePickerVisible:false});
-        this.setState({dateField:`${d[3]}-${d[1]}-${d[2]}`});
+        this.setState({dateField:`${d[3].toString()}-${monthNameArray.indexOf(d[1])+1}-${d[2]}`});
     }
     _handleGoToChange =(event,selectedTime) => {
         let d = selectedTime.toString().split(" ");
