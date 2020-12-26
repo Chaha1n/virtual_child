@@ -11,10 +11,24 @@ export default StyleSheet.create({
     },
     modal: {
         marginTop:Dimensions.get('window').height*0.5,
-        height:Dimensions.get('window').height*0.3,
+        height:Dimensions.get('window').height*0.4,
+
+        backgroundColor: '#ffff00'
+    },
+    modalContents:{
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'gray'
+    },
+    recordModalButton: {
+        alignItems: 'center',
+        marginTop:20,
+        height:40,
+
+    },
+    closeButton:{
+        width:40,
+        height:40,
+
     }
 
 });
