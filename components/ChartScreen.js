@@ -16,8 +16,8 @@ import AsyncStorage from '@react-native-community/async-storage';//react-native-
 class ChartScreen extends React.Component {
     /**
      * this function returns how long user slept.
-     * @param {string} date  - format is "yyyy-mm-dd". For example,"2020-12-26" "2020-09-08".
-     * @return {object{number,number}} time - format is "{hours:8,minutes:25}".
+     * @param {string} date  - format is "mm-dd". For example,"12-26" "09-08".
+     * @return {object{number,number}} time - format is like "{hours:8,minutes:25}".
      * if data does not found, return {hours:0,minutes:0};
     **/
     _readSleepTimeData(date){

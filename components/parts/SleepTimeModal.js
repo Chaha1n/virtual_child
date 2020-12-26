@@ -4,6 +4,7 @@ import styles from "../../assets/style/styles";
 import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-community/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import SvgUri from 'react-native-svg-uri';
 
 export default class SleepTimeModal extends React.Component {
 
@@ -14,7 +15,7 @@ export default class SleepTimeModal extends React.Component {
         getUpField: "00:00",
         isDatePickerVisible:false,
         isGoToBedPickerVisible:false,
-        isGetUpPickerVisible:false
+        isGetUpPickerVisible:false,
     }
 
     constructor() {
@@ -46,14 +47,14 @@ export default class SleepTimeModal extends React.Component {
         const year = d.getFullYear();
         const month = ("0" + (d.getMonth() + 1)).slice(-2);
         const day = ("0" + d.getDate()).slice(-2);
-        return (`${year}-${month}-${day}`);
+        return (`${month}-${day}`);
     }
 
     _handleDateChange = (event,selectedDate)=> {
         const monthNameArray = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
         let d = selectedDate.toString().split(" ");
         this.setState({isDatePickerVisible:false});
-        this.setState({dateField:`${d[3].toString()}-${monthNameArray.indexOf(d[1])+1}-${d[2]}`});
+        this.setState({dateField:`${monthNameArray.indexOf(d[1])+1}-${d[2]}`});
     }
     _handleGoToChange =(event,selectedTime) => {
         let d = selectedTime.toString().split(" ");
@@ -117,21 +118,25 @@ export default class SleepTimeModal extends React.Component {
                     transparent={true}
                 >
                     <View style={styles.modal}>
-                        <TouchableOpacity onPress={this.toggleModal}>
+                        <TouchableOpacity onPress={this.toggleModal} style={styles.closeButton}>
                             <Image
                                 style={styles.closeButton}
-                                source={require('../../assets/x-circle.svg')
-                            }>
+                                source={require('../../assets/x-circle.png')
+                                }>
                             </Image>
                         </TouchableOpacity>
-                        <Text>日付</Text><Button title={this.state.dateField}    onPress={this.toggleDatePicker}/>
-                        <Text>就寝</Text><Button title={this.state.goToBedField} onPress={this.toggleGoToBedPicker}/>
-                        <Text>起床</Text><Button title={this.state.getUpField}   onPress={this.toggleGetUpPicker}/>
+                        <View style={styles.modalContents}>
+                            <Text>日付</Text><Button title={this.state.dateField}    onPress={this.toggleDatePicker}/>
+                            <Text>就寝</Text><Button title={this.state.goToBedField} onPress={this.toggleGoToBedPicker}/>
+                            <Text>起床</Text><Button title={this.state.getUpField}   onPress={this.toggleGetUpPicker}/>
 
-                        {this.state.isDatePickerVisible  && <DateTimePicker value={new Date()} onChange={this._handleDateChange} mode="date"/>}
-                        {this.state.isGoToBedPickerVisible  && <DateTimePicker value={new Date()} onChange={this._handleGoToChange} mode="time"/>}
-                        {this.state.isGetUpPickerVisible && <DateTimePicker value={new Date()} onChange={this._handleGetUpChange} mode="time"/>}
-                        <Button style={styles.showModalButton}title="記録" onPress={recordTimeOfSleeping}/>
+                            {this.state.isDatePickerVisible  && <DateTimePicker value={new Date()} onChange={this._handleDateChange} mode="date"/>}
+                            {this.state.isGoToBedPickerVisible  && <DateTimePicker value={new Date()} onChange={this._handleGoToChange} mode="time"/>}
+                            {this.state.isGetUpPickerVisible && <DateTimePicker value={new Date()} onChange={this._handleGetUpChange} mode="time"/>}
+                        </View>
+                        <View style={styles.recordModalButton}>
+                            <Button color="green" title="記録" onPress={recordTimeOfSleeping}/>
+                        </View>
                     </View>
                 </Modal>
             </View>
