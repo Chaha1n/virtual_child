@@ -1,24 +1,28 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 //Compornents
 import HomeScreen from './components/HomeScreen';
 import ChartScreen from './components/ChartScreen';
 
-const RootStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-    Chart: ChartScreen,
-  },
-  {
-    initialRouteName: 'Home',
-  }
-);
 
-const AppContainer = createAppContainer(RootStack);
+const Stack = createStackNavigator();
+function RootStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{ gestureEnabled: false }}
+    >
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Chart" component={ChartScreen} />
+    </Stack.Navigator>
+  );
+}
 
-export default class App extends React.Component {
-  render() {
-    return <AppContainer />;
-  }
+export default function App() {
+  return (
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
+  );
 }
