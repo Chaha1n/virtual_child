@@ -1,10 +1,9 @@
 import React from 'react';
-import {Button, Text, View} from 'react-native';
-import Modal from 'modal-react-native-web';
+import {Button, Text, View,Modal} from 'react-native';
 import styles from "../../assets/style/styles";
 import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-community/async-storage';
-import {TextInput} from "react-native-web";
+import DateTimePicker from '@react-native-community/datetimepicker';
 //
 
 export default class SleepTimeModal extends React.Component {
@@ -14,17 +13,31 @@ export default class SleepTimeModal extends React.Component {
         dateField: this._getDefaultDate().toString(),
         goToBedField: "00:00",
         getUpField: "00:00",
+        isDatePickerVisible:false,
+        isGoToBedPickerVisible:false,
+        isGetUpPickerVisible:false
     }
 
     constructor() {
         super();
         this.state.isModalVisible = false
         this.toggleModal = this.toggleModal.bind(this);
+        this.toggleDatePicker = this.toggleDatePicker.bind(this);
+        this.toggleGoToBedPicker = this.toggleGoToBedPicker.bind(this);
+        this.toggleGetUpPicker = this.toggleGetUpPicker.bind(this);
         this._handleGetUpChange = this._handleGetUpChange.bind(this);
         this._handleDateChange = this._handleDateChange.bind(this);
         this._handleGoToChange = this._handleGoToChange.bind(this);
     }
-
+    toggleDatePicker(){
+        this.setState({isDatePickerVisible:true});
+    }
+    toggleGoToBedPicker(){
+        this.setState({isGoToBedPickerVisible:true});
+    }
+    toggleGetUpPicker(){
+        this.setState({isGetUpPickerVisible:true});
+    }
     toggleModal() {
         this.setState({isModalVisible: !this.state.isModalVisible})
     };
@@ -35,20 +48,23 @@ export default class SleepTimeModal extends React.Component {
         const month = ("0" + (d.getMonth() + 1)).slice(-2);
         const day = ("0" + d.getDate()).slice(-2);
         console.log(`${year}-${month}-${day}`)
-        return `${year}-${month}-${day}`;
+        return new Date(parseInt(year.toString()),parseInt(month),parseInt(day));
     }
 
-    _handleDateChange = inputDate => {
-        this.setState({dateField: inputDate.target.value});
-        console.log(inputDate.target.value);
+    _handleDateChange = (event,selectedDate)=> {
+        this.setState({dateField: selectedDate.toDateString()});
+        this.setState({isDatePickerVisible:false});
     }
-    _handleGetUpChange = inputGetUp => {
-        this.setState({getUpField: inputGetUp.target.value});
-        console.log(inputGetUp.target.value)
+
+    _handleGetUpChange = (event,selectedTime) => {
+        this.setState({getUpField:selectedTime.toString()});
+        this.setState({isGetUpPickerVisible:false});
     }
-    _handleGoToChange = inputGoTo => {
-        this.setState({goToBedField: inputGoTo.target.value});
+    _handleGoToChange =(event,selectedTime) => {
+        this.setState({goToBedField:selectedTime.toString()});
+        this.setState({isGoToBedPickerVisible:false});
     }
+
 
     render() {
         const recordTimeOfSleeping = () => {
@@ -99,10 +115,13 @@ export default class SleepTimeModal extends React.Component {
                     transparent={true}
                 >
                     <View style={styles.modal}>
-                        <Text>Hello!</Text>
-                        <input type="date" value={this.state.dateField} onChange={this._handleDateChange}></input>
-                        <input type="time" value={this.state.goToBedField} onChange={this._handleGoToChange}></input>
-                        <input type="time" value={this.state.getUpField} onChange={this._handleGetUpChange}></input>
+                        <Button title={this.state.dateField}    onPress={this.toggleDatePicker}/>
+                        <Button title={this.state.goToBedField} onPress={this.toggleGoToBedPicker}/>
+                        <Button title={this.state.getUpField}   onPress={this.toggleGetUpPicker}/>
+
+                        {this.state.isDatePickerVisible  && <DateTimePicker value={new Date()} onChange={this._handleDateChange} mode="date"/>}
+                        {this.state.isGoToBedPickerVisible  && <DateTimePicker value={new Date()} onChange={this._handleGoToChange} mode="time"/>}
+                        {this.state.isGetUpPickerVisible && <DateTimePicker value={new Date()} onChange={this._handleGetUpChange} mode="time"/>}
                         <Button title="記録" onPress={recordTimeOfSleeping}/>
                     </View>
                 </Modal>
@@ -110,3 +129,4 @@ export default class SleepTimeModal extends React.Component {
         );
     }
 }
+
