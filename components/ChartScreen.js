@@ -17,16 +17,24 @@ class ChartScreen extends React.Component {
     /**
      * this function returns how long user slept.
      * @param {string} date  - format is "yyyy-mm-dd". For example,"2020-12-26" "2020-09-08".
-     * @return {string} time - format is "hh:mm". For Example,12 hours 30 minutes is "12:30".
-     * when the time is less than 10 hours or less than 10 minutes,format is like "08:08",not "8:08" or "8:8".
+     * @return {object{number,number}} time - format is "{hours:8,minutes:25}".
+     * if data does not found, return {hours:0,minutes:0};
     **/
     _readSleepTimeData(date){
         const storage = new Storage({
             storageBackend:AsyncStorage,
         });
-        //storage.load(key:)
+        let sleepData = {"hours":0,"minutes":0};
+        storage.load({key:date}).then((d)=>{
+            sleepData = d;
+            console.log(sleepData);
+        }).catch((e)=>{
+            console.log(e)
+        });
+        return sleepData;
     }
   render(){
+        this._readSleepTimeData("2020-12-26")
     return (
       <View style={styles.container}>
         <Text>起床就寝管理</Text>
