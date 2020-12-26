@@ -55,10 +55,7 @@ class ChartScreen extends React.Component {
             }}
                 // bezier
         />
-        <Button
-          title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
+        
         <SleepTimeModal/>
       </View>
     );
