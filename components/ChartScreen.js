@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Button, Text, View } from 'react-native';
 import styles from '../assets/style/styles.js';
-
 import SleepTimeModal from "./parts/SleepTimeModal";
 import {
     LineChart,
@@ -11,9 +10,22 @@ import {
     ContributionGraph,
     StackedBarChart
 } from 'react-native-chart-kit'
-
+import Storage from "react-native-storage";
+import AsyncStorage from '@react-native-community/async-storage';//react-native-storage dependencies
 
 class ChartScreen extends React.Component {
+    /**
+     * this function returns how long user slept.
+     * @param {string} date  - format is "yyyy-mm-dd". For example,"2020-12-26" "2020-09-08".
+     * @return {string} time - format is "hh:mm". For Example,12 hours 30 minutes is "12:30".
+     * when the time is less than 10 hours or less than 10 minutes,format is like "08:08",not "8:08" or "8:8".
+    **/
+    _readSleepTimeData(date){
+        const storage = new Storage({
+            storageBackend:AsyncStorage,
+        });
+        //storage.load(key:)
+    }
   render(){
     return (
       <View style={styles.container}>
