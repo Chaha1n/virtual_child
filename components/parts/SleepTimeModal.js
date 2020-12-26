@@ -4,8 +4,7 @@ import Modal from 'modal-react-native-web';
 import styles from "../../assets/style/styles";
 import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-community/async-storage';
-import {TextInput} from "react-native-web";
-//
+
 
 export default class SleepTimeModal extends React.Component {
 
