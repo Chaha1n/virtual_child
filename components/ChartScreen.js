@@ -2,14 +2,7 @@ import React from 'react';
 import { StyleSheet, Button, Text, View } from 'react-native';
 import styles from '../assets/style/styles.js';
 import SleepTimeModal from "./parts/SleepTimeModal";
-import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph,
-    StackedBarChart
-} from 'react-native-chart-kit'
+import { LineChart } from 'react-native-chart-kit'
 import Storage from "react-native-storage";
 import AsyncStorage from '@react-native-community/async-storage';//react-native-storage dependencies
 
@@ -62,10 +55,7 @@ class ChartScreen extends React.Component {
             }}
                 // bezier
         />
-        <Button
-          title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
+        
         <SleepTimeModal/>
       </View>
     );

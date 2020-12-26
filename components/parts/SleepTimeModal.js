@@ -4,7 +4,6 @@ import styles from "../../assets/style/styles";
 import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-community/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import SvgUri from 'react-native-svg-uri';
 
 export default class SleepTimeModal extends React.Component {
 
