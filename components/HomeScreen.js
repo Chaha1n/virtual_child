@@ -7,10 +7,7 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Check child={3}/>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Hello World!</Text>
-        
-        
+        <Text style={{margin:50,fontSize:40}}>我が子の様子</Text>
       </View>
     );
   }
