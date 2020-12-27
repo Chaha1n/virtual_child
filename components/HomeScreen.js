@@ -37,7 +37,7 @@ class HomeScreen extends React.Component {
         return Promise.all([this._readSleepTimeData(`${key}${date.getDate() - 4}`), this._readSleepTimeData(`${key}${date.getDate() - 3}`), this._readSleepTimeData(`${key}${date.getDate() - 2}`), this._readSleepTimeData(`${key}${date.getDate() - 1}`), this._readSleepTimeData(`${key}${date.getDate()}`)]);
 
     }
-  render(){
+    render(){
         this._calculateAverageSleepTime().then((arr)=>{
             let sum=0;
             arr.forEach(n=>sum+=n);
@@ -52,13 +52,14 @@ class HomeScreen extends React.Component {
                 this.setState({childMessage:"辛い"});
             }
         })
-    return (
-      <View style={styles.container}>
-        <Check child={this.state.childStatus}/>
-        <Text style={{margin:50,fontSize:40}}>{this.state.childMessage}</Text>
-      </View>
-    );
-  }
+        return (
+            <View style={styles.container}>
+                <Check child={this.state.childStatus}/>
+                <Text style={{margin:50,fontSize:40}}>{this.state.childMessage}</Text>
+            </View>
+        );
+    }
+
 }
 
 export default HomeScreen;
