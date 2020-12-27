@@ -100,10 +100,14 @@ export default class SleepTimeModal extends React.Component {
             }
         }).then(() => {
             this.toggleModal();
+        }).then(()=>{
+            this.props.reload();
+        }).then(()=>{
+            this.props.reRender();
         }).catch((e) => {
             console.error(e);
         });
-        this.props.render();
+
     }
 
     render() {
