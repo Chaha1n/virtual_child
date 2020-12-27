@@ -8,12 +8,13 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop:50,
     },
     modal: {
         marginTop:Dimensions.get('window').height*0.5,
         height:Dimensions.get('window').height*0.4,
 
-        backgroundColor: '#ffff00'
+        backgroundColor: '#c0c0c0'
     },
     modalContents:{
         alignItems: 'center',
@@ -29,6 +30,7 @@ export default StyleSheet.create({
         width:40,
         height:40,
 
-    }
+    },
+    
 
 });

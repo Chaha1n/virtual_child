@@ -89,7 +89,7 @@ class ChartScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>起床就寝管理</Text>
+               <Text style={{margin:50,fontSize:20}}>直近5日間の睡眠時間</Text>
                 <LineChart
                     data={{
                         labels: [ '4日前', '3日前', '2日前', '1日前','今日'],
