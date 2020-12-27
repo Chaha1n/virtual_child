@@ -106,7 +106,7 @@ class ChartScreen extends React.Component {
                     }}
                     width={300} // from react-native
                     height={220}
-                    yAxisSuffix={'時'}
+                    yAxisSuffix={'時間'}
                     chartConfig={{
                         backgroundColor: '#fff',
                         backgroundGradientFrom: '#fff',

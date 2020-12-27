@@ -113,7 +113,7 @@ export default class SleepTimeModal extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Button title="Show modal" onPress={this.toggleModal}/>
+                <Button title="記録する" onPress={this.toggleModal}/>
                 <Modal
                     visible={this.state.isModalVisible}
                     animationType={"slide"}
