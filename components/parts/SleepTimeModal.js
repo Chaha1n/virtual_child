@@ -17,8 +17,8 @@ export default class SleepTimeModal extends React.Component {
         isGetUpPickerVisible:false,
     }
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state.isModalVisible = false
         this.toggleModal = this.toggleModal.bind(this);
         this.toggleDatePicker = this.toggleDatePicker.bind(this);
@@ -27,6 +27,7 @@ export default class SleepTimeModal extends React.Component {
         this._handleGetUpChange = this._handleGetUpChange.bind(this);
         this._handleDateChange = this._handleDateChange.bind(this);
         this._handleGoToChange = this._handleGoToChange.bind(this);
+        this.recordTimeOfSleeping = this.recordTimeOfSleeping.bind(this);
     }
     toggleDatePicker(){
         this.setState({isDatePickerVisible:true});
@@ -65,48 +66,47 @@ export default class SleepTimeModal extends React.Component {
         this.setState({isGetUpPickerVisible:false});
         this.setState({getUpField:`${d[4]}`.slice(0,-3)});
     }
+    recordTimeOfSleeping(){
+        let date = this.state.dateField.toString();
+        let goTo = this.state.goToBedField.toString();
+        let getUp = this.state.getUpField.toString();
+
+        let [gotoH, gotoM] = goTo.toString().split(":");
+        let [getUpH, getUpM] = getUp.toString().split(":");
+
+        getUpH = parseInt(getUpH)<0 ? parseInt(getUpH) : parseInt(getUpH)+24;
+
+        console.log(gotoH, gotoM, getUpH, getUpM);
+        let sleepHours, sleepMinutes = "00";
 
 
+        sleepHours = getUpH - parseInt(gotoH);
+        sleepMinutes = parseInt(getUpM) - parseInt(gotoM);
+
+        if (sleepMinutes < 0) {
+            sleepHours -= 1;
+            sleepMinutes += 60;
+        }
+
+        //init react-native-storage
+        const storage = new Storage({
+            storageBackend: AsyncStorage,
+        });
+        storage.save({
+            key: date,
+            data: {
+                hours: sleepHours,
+                minutes: sleepMinutes,
+            }
+        }).then(() => {
+            this.toggleModal();
+        }).catch((e) => {
+            console.error(e);
+        });
+        this.props.render();
+    }
 
     render() {
-        const recordTimeOfSleeping = () => {
-            let date = this.state.dateField.toString();
-            let goTo = this.state.goToBedField.toString();
-            let getUp = this.state.getUpField.toString();
-
-            let [gotoH, gotoM] = goTo.toString().split(":");
-            let [getUpH, getUpM] = getUp.toString().split(":");
-
-            getUpH = parseInt(getUpH)<0 ? parseInt(getUpH) : parseInt(getUpH)+24;
-
-            console.log(gotoH, gotoM, getUpH, getUpM);
-            let sleepHours, sleepMinutes = "00";
-
-
-            sleepHours = getUpH - parseInt(gotoH);
-            sleepMinutes = parseInt(getUpM) - parseInt(gotoM);
-
-            if (sleepMinutes < 0) {
-                sleepHours -= 1;
-                sleepMinutes += 60;
-            }
-
-            //init react-native-storage
-            const storage = new Storage({
-                storageBackend: AsyncStorage,
-            });
-            storage.save({
-                key: date,
-                data: {
-                    hours: sleepHours,
-                    minutes: sleepMinutes,
-                }
-            }).then(() => {
-                this.toggleModal();
-            }).catch((e) => {
-                console.error(e);
-            });
-        }
         return (
             <View style={styles.container}>
                 <Button title="Show modal" onPress={this.toggleModal}/>
@@ -134,7 +134,7 @@ export default class SleepTimeModal extends React.Component {
                             {this.state.isGetUpPickerVisible && <DateTimePicker value={new Date()} onChange={this._handleGetUpChange} mode="time"/>}
                         </View>
                         <View style={styles.recordModalButton}>
-                            <Button color="green" title="記録" onPress={recordTimeOfSleeping}/>
+                            <Button color="green" title="記録" onPress={this.recordTimeOfSleeping}/>
                         </View>
                     </View>
                 </Modal>
