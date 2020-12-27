@@ -32,7 +32,7 @@ class ChartScreen extends React.Component {
         <Text>起床就寝管理</Text>
         <LineChart
             data={{
-                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                labels: ['5日前', '4日前', '3日前', '2日前', '1日前'],
                 datasets: [{
                     data: [
                         Math.random() * 100,
@@ -46,7 +46,7 @@ class ChartScreen extends React.Component {
             }}
             width={300} // from react-native
             height={220}
-            yAxisLabel={'円'}
+            yAxisSuffix={'時'}
             chartConfig={{
                 backgroundColor: '#fff',
                 backgroundGradientFrom: '#fff',
